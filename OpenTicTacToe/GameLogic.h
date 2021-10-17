@@ -1,20 +1,23 @@
 #pragma once
+#include <iostream>
 #include <vector>
 
 class GameLogic
 {
-private:
-    static constexpr int gridSize = 3;
-    int gameScore[3][3] = { 0, 0, 0,
-                            0, 0, 0,
-                            0, 0, 0 };;
-    int tableScore[8] = { 0, 0, 0, 0, 0, 0, 0, 0};
-    bool turnX;
-    bool endGame;
+    private:
+        void initVeriables();
+    public:
+        int gridSize = 3;
+        int moveNumber;
+        std::vector<std::vector<int>> gameScore;
+        std::vector<int> tableScore;
+        bool turnX;
+        bool endGame;
 
-    void initVeriables();
-public:
-    GameLogic();
-    virtual ~GameLogic();
+        GameLogic();
+        virtual ~GameLogic();
+
+        void checkForWinner();
+        void updateTableScore(int col, int row, int score);
 };
 
