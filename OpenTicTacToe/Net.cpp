@@ -38,6 +38,7 @@ void Net::feedForward(const std::vector<double>& inputVals)
 void Net::backProp(const std::vector<double>& targetVals)
 {
 	Layer& outputLayer = m_layers.back();
+
 	m_error = 0.0;
 	for (unsigned n = 0; n < outputLayer.size() - 1; n++)
 	{
@@ -46,8 +47,7 @@ void Net::backProp(const std::vector<double>& targetVals)
 	}
 	m_error /= outputLayer.size() - 1;
 	m_error = sqrt(m_error);
-
-	m_recetAverageError = (m_recetAverageError * m_recentAverageSmoothingFactor + m_error) / (m_recentAverageSmoothingFactor + 1.0);
+	m_recentAverageError = (m_recentAverageError * m_recentAverageSmoothingFactor + m_error) / (m_recentAverageSmoothingFactor + 1.0);
 
 	for (unsigned n = 0; n < outputLayer.size() - 1; n++)
 	{

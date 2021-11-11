@@ -1,7 +1,7 @@
 #include "Neuron.h"
 
 double Neuron::eta = 0.15;
-double Neuron::alpha = 0.5;
+double Neuron::alpha = 2;
 
 Neuron::Neuron(unsigned numOutputs, unsigned myIndex)
 {

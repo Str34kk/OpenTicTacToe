@@ -49,16 +49,18 @@ void SFWindow::render()
 {
     window->clear();
     window->draw(table);
+    int posiotionInGrid;
     for (int i = 0; i < gameLogic.gridSize; i++)
     {
         for (int j = 0; j < gameLogic.gridSize; j++)
         {
-            if (gameLogic.gameScore[i][j] == 1)
+            posiotionInGrid = i * gameLogic.gridSize + j;
+            if (gameLogic.gameScore[posiotionInGrid] == 1)
             {
                 x[0].setPosition((i * 200), (j * 200));
                 window->draw(x[0]);
             }
-            else if (gameLogic.gameScore[i][j] == -1)
+            else if (gameLogic.gameScore[posiotionInGrid] == -1)
             {
                 o[0].setPosition((i * 200), (j * 200));
                 window->draw(o[0]);
@@ -93,37 +95,33 @@ void SFWindow::updateEvents()
 
         if (event.type == sf::Event::MouseButtonReleased)
         {
+            int posiotionInGrid;
             for (int i = 0; i < gameLogic.gridSize; i++)
             {
                 for (int j = 0; j < gameLogic.gridSize; j++)
                 {
+                    posiotionInGrid = i * gameLogic.gridSize + j;
                     if (!gameLogic.endGame &&
-                        gameLogic.turnX &&
-                        gameLogic.gameScore[i][j] == 0 &&
+                        gameLogic.gameScore.back() == 1 &&
+                        gameLogic.gameScore[posiotionInGrid] == 0 &&
                         mousePosition.x > (i * 200) &&
                         mousePosition.x < 200 + (i * 200) &&
                         mousePosition.y >(j * 200) &&
                         mousePosition.y < 200 + (j * 200))
                     {
-                        gameLogic.gameScore[i][j] = 1;
-                        gameLogic.updateTableScore(i, j, 1);
-                        gameLogic.moveNumber += 1;
+                        gameLogic.updateTableScore(posiotionInGrid);
                         if (gameLogic.moveNumber > 4) gameLogic.checkForWinner();
-                        gameLogic.turnX = false;
                     }
                     else if (!gameLogic.endGame &&
-                        !gameLogic.turnX &&
-                        gameLogic.gameScore[i][j] == 0 &&
+                        gameLogic.gameScore.back() == -1 &&
+                        gameLogic.gameScore[posiotionInGrid] == 0 &&
                         mousePosition.x > (i * 200) &&
                         mousePosition.x < 200 + (i * 200) &&
                         mousePosition.y >(j * 200) &&
                         mousePosition.y < 200 + (j * 200))
                     {
-                        gameLogic.gameScore[i][j] = -1;
-                        gameLogic.updateTableScore(i, j, -1);
-                        gameLogic.moveNumber += 1;
+                        gameLogic.updateTableScore(posiotionInGrid);
                         if (gameLogic.moveNumber > 4) gameLogic.checkForWinner();
-                        gameLogic.turnX = true;
                     }
                 }
             }

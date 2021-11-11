@@ -9,15 +9,14 @@ class GameLogic
     public:
         int gridSize = 3;
         int moveNumber;
-        std::vector<std::vector<int>> gameScore;
+        std::vector<double> gameScore;
         std::vector<int> tableScore;
-        bool turnX;
         bool endGame;
 
         GameLogic();
         virtual ~GameLogic();
 
-        void checkForWinner();
-        void updateTableScore(int col, int row, int score);
+        int checkForWinner();
+        void updateTableScore(int index);
 };
 
