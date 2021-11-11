@@ -4,11 +4,16 @@
 #include <vector>
 
 #include "GameLogic.h"
+#include "Net.h"
+#include "Helpers.h"
 
 class SFWindow
 {
     private:
+        Helpers helpers;
         GameLogic gameLogic;
+        std::vector<unsigned> topology = { 1, 1, 1 };
+        Net neuralNet;
 
         sf::RenderWindow* window;
         sf::VideoMode videoMode;
@@ -21,11 +26,11 @@ class SFWindow
         std::vector<sf::Sprite> o;
         std::vector<sf::Sprite> x;
 
-
         void initVeriables();
         void initWindow();
+        void AIMove();
     public:
-        SFWindow(GameLogic _gameLogic);
+        SFWindow(GameLogic& _gameLogic, Net& _neuralNet);
         virtual ~SFWindow();
 
         const bool getWindowIsOpen() const;

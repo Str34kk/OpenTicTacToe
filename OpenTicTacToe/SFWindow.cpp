@@ -32,12 +32,15 @@ void SFWindow::initWindow()
 	window->setFramerateLimit(25);
 }
 
-SFWindow::SFWindow(GameLogic _gameLogic)
+SFWindow::SFWindow(GameLogic& _gameLogic, Net& _neuralNet) : neuralNet(topology)
 {
 	initVeriables();
 	initWindow();
 
     gameLogic = _gameLogic;
+    neuralNet = _neuralNet;
+
+    std::cout << "Net recent average error: " << neuralNet.getRecentAverageError() << std::endl;
 }
 
 SFWindow::~SFWindow()
@@ -80,6 +83,18 @@ const bool SFWindow::getWindowIsOpen() const
     return window->isOpen();
 }
 
+void SFWindow::AIMove()
+{
+    std::vector<double> inputVals, targetVals, resultVals;
+    neuralNet.feedForward(gameLogic.gameScore);
+    neuralNet.getResults(resultVals);
+
+    int AIChoice = helpers.largest_element_index(resultVals, gameLogic.gameScore);
+    helpers.showVectorVals("resultVals: ", resultVals);
+
+    gameLogic.updateTableScore(AIChoice);
+}
+
 void SFWindow::updateEvents()
 {
     while (window->pollEvent(event))
@@ -91,6 +106,12 @@ void SFWindow::updateEvents()
         {
             mousePosition.x = event.mouseMove.x;
             mousePosition.y = event.mouseMove.y;
+        }
+
+        if (!gameLogic.endGame && gameLogic.gameScore.back() == 1)
+        {
+            AIMove();
+            if (gameLogic.moveNumber > 4) gameLogic.checkForWinner();
         }
 
         if (event.type == sf::Event::MouseButtonReleased)
