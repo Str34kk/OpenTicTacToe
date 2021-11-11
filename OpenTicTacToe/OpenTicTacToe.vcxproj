@@ -20,11 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLogic.cpp" />
+    <ClCompile Include="Net.cpp" />
+    <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="SFWindow.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLogic.h" />
+    <ClInclude Include="Net.h" />
+    <ClInclude Include="Neuron.h" />
     <ClInclude Include="SFWindow.h" />
     <ClInclude Include="Main.h" />
   </ItemGroup>

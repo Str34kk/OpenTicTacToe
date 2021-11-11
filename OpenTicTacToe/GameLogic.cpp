@@ -4,8 +4,8 @@ void GameLogic::initVeriables()
 {
     gridSize = 3;
     gameScore = { {0, 0, 0 },
-                        {0, 0, 0 },
-                        {0, 0, 0 }};
+                {0, 0, 0 },
+                {0, 0, 0 }};
     tableScore = { 0, 0, 0, 0, 0, 0, 0, 0 };
 	turnX = true;
 	endGame = false;
