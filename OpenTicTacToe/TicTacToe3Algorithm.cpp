@@ -23,7 +23,7 @@ int TicTacToe3Algorithm::bestMove(std::vector<double> gameScore)
 
                 // compute evaluation function for this
                 // move.
-                int moveVal = minimax(gameScore, 0, oMove);
+                int moveVal = minimax(gameScore, 0, false);
 
                 // Undo the move
                 gameScore[i * 3 + j] = 0;
@@ -106,6 +106,9 @@ int TicTacToe3Algorithm::minimax(std::vector<double> gameScore, int depth, bool 
     if (score == -10)
         return score;
 
+    if (anyMovesLeft(gameScore) == false)
+        return 0;
+
     // If this maximizer's move
     if (isMax)
     {
@@ -161,4 +164,13 @@ int TicTacToe3Algorithm::minimax(std::vector<double> gameScore, int depth, bool 
         }
         return best;
     }
+}
+
+bool TicTacToe3Algorithm::anyMovesLeft(std::vector<double> gameScore)
+{
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            if (gameScore[i * 3 + j] == 0)
+                return true;
+    return false;
 }

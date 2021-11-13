@@ -10,11 +10,11 @@ int main()
     std::vector<unsigned> topology = { 10, 36, 36, 9 };
     Net neuralNet(topology);
     TicTacToeTrainer ticTacToeTrainer(neuralNet);
+    ticTacToeTrainer.Train(10, 500);
+
     GameLogic gameLogic;
-
-    ticTacToeTrainer.Train(5, 100);
-
     SFWindow sFWindow(gameLogic, neuralNet);
+
     while (sFWindow.getWindowIsOpen())
     {
         sFWindow.update();

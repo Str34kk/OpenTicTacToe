@@ -17,17 +17,18 @@ void TicTacToeTrainer::Train(int trainingCycles, int generationsPerCycle)
 
         for (int j = 0; j < generationsPerCycle; j++, triainingPas++)
         {
-            int gamePas = 0;
+            int gamePass = 0;
             int winner = 0;
             int bestMove = 0;
+            bool xMove = false;
             std::vector<double> bestResultVals;
             GameLogic trainingGame;
-            for (int k = 0; k < trainingGame.gridSize * trainingGame.gridSize; k++) bestResultVals.push_back(0);
+            for (int k = 0; k < trainingGame.gridSize * trainingGame.gridSize; k++) bestResultVals.push_back(-1);
 
 
             while (!trainingGame.endGame)
             {
-                gamePas++;
+                gamePass++;
 
                 neuralNet.feedForward(trainingGame.gameScore);
                 neuralNet.getResults(resultVals);
@@ -35,12 +36,11 @@ void TicTacToeTrainer::Train(int trainingCycles, int generationsPerCycle)
                 int AIChoice = helpers.largest_element_index(resultVals, trainingGame.gameScore);
 
                 bestMove = ticTacToe3Algorithm.bestMove(trainingGame.gameScore);
-
                 bestResultVals[bestMove] = 1;
+                trainingGame.updateTableScore(AIChoice);
                 neuralNet.backProp(bestResultVals);
                 bestResultVals[bestMove] = 0;
 
-                trainingGame.updateTableScore(AIChoice);
                 if (trainingGame.moveNumber > 4) winner = trainingGame.checkForWinner();
             }
             if (winner == 0) draw++;
