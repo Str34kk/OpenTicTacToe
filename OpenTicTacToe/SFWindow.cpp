@@ -36,8 +36,6 @@ SFWindow::SFWindow(GameLogic& _gameLogic, Net& _neuralNet) : neuralNet(_neuralNe
 {
 	initVeriables();
 	initWindow();
-
-    std::cout << "Net recent average error: " << _neuralNet.getRecentAverageError() << std::endl;
 }
 
 SFWindow::~SFWindow()

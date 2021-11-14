@@ -1,11 +1,11 @@
 #include "TicTacToeTrainer.h"
 
-TicTacToeTrainer::TicTacToeTrainer(Net _neuralNet) : neuralNet(_neuralNet)
+TicTacToeTrainer::TicTacToeTrainer(Net& _neuralNet) : neuralNet(_neuralNet)
 {
     m_trainingDataFile.open("ttt3x3.txt");
 }
 
-void TicTacToeTrainer::Train(int trainingCycles)
+Net TicTacToeTrainer::Train(int trainingCycles)
 {
     int trainingPass = 0;
     std::vector<double> inputVals, targetVals, resultVals;
@@ -22,15 +22,9 @@ void TicTacToeTrainer::Train(int trainingCycles)
 
             neuralNet.feedForward(inputVals);
 
-            if (trainingPass % (153500 * trainingCycles) == 0)
-            {
-                neuralNet.getResults(resultVals);
-                helpers.showVectorVals("resultVals: ", resultVals);
-            }
-
             neuralNet.backProp(targetVals);
 
-            if (trainingPass % (3000 * trainingCycles) == 0)
+            if (trainingPass % (10000 * trainingCycles) == 0)
             {
                 std::cout << trainingPass << "th generation results" << std::endl;
                 std::cout << "Net recent average error: " << neuralNet.getRecentAverageError() << std::endl;
@@ -39,6 +33,7 @@ void TicTacToeTrainer::Train(int trainingCycles)
     }
     std::cout << "final result" << std::endl;
     std::cout << "Net recent average error: " << neuralNet.getRecentAverageError() << std::endl;
+    return neuralNet;
 }
 
 unsigned TicTacToeTrainer::getNextInputs(std::vector<double>& inputVals, std::vector<double>& targetOutputVals)

@@ -9,7 +9,7 @@ int main()
     std::vector<unsigned> topology = { 10, 36, 36, 9 };
     Net neuralNet(topology);
     TicTacToeTrainer ticTacToeTrainer(neuralNet);
-    ticTacToeTrainer.Train(1);
+    neuralNet = ticTacToeTrainer.Train(10);
 
     std::cout << "Net recent average error: " << neuralNet.getRecentAverageError() << std::endl;
 
