@@ -32,15 +32,12 @@ void SFWindow::initWindow()
 	window->setFramerateLimit(25);
 }
 
-SFWindow::SFWindow(GameLogic& _gameLogic, Net& _neuralNet) : neuralNet(topology)
+SFWindow::SFWindow(GameLogic& _gameLogic, Net& _neuralNet) : neuralNet(_neuralNet), gameLogic(_gameLogic)
 {
 	initVeriables();
 	initWindow();
 
-    gameLogic = _gameLogic;
-    neuralNet = _neuralNet;
-
-    std::cout << "Net recent average error: " << neuralNet.getRecentAverageError() << std::endl;
+    std::cout << "Net recent average error: " << _neuralNet.getRecentAverageError() << std::endl;
 }
 
 SFWindow::~SFWindow()
@@ -90,6 +87,7 @@ void SFWindow::AIMove()
     neuralNet.getResults(resultVals);
 
     int AIChoice = helpers.largest_element_index(resultVals, gameLogic.gameScore);
+
     helpers.showVectorVals("resultVals: ", resultVals);
 
     gameLogic.updateTableScore(AIChoice);
@@ -111,6 +109,7 @@ void SFWindow::updateEvents()
         if (!gameLogic.endGame && gameLogic.gameScore.back() == 1)
         {
             AIMove();
+            render();
             if (gameLogic.moveNumber > 4) gameLogic.checkForWinner();
         }
 

@@ -12,7 +12,6 @@ class SFWindow
     private:
         Helpers helpers;
         GameLogic gameLogic;
-        std::vector<unsigned> topology = { 1, 1, 1 };
         Net neuralNet;
 
         sf::RenderWindow* window;

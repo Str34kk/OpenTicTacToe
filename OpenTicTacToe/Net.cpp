@@ -20,6 +20,7 @@ Net::Net(const std::vector<unsigned>& topology)
         // Force the bias node's output to 1.0 (it was the last neuron pushed in this layer):
         m_layers.back().back().setOutputVal(1.0);
     }
+    std::cout<<"nowy ja " << topology[3] << std::endl;
 }
 
 void Net::feedForward(const std::vector<double>& inputVals)

@@ -5,18 +5,21 @@
 #include "Net.h"
 #include "GameLogic.h"
 #include "Helpers.h"
-#include "TicTacToe3Algorithm.h"
+#include <fstream>
+#include <sstream>
 
 class TicTacToeTrainer
 {
 public:
 	TicTacToeTrainer(Net _neuralNet);
-	void Train(int trainingCycles, int generationsPerCycle);
+	void Train(int trainingCycles);
+	bool isEof(void) { return m_trainingDataFile.eof(); }
+
+	unsigned getNextInputs(std::vector<double>& inputVals, std::vector<double>& targetOutputVals);
 
 private:
-	std::vector<unsigned> topology = { 1, 1, 1 };
 	Net neuralNet;
 	Helpers helpers;
-	TicTacToe3Algorithm ticTacToe3Algorithm;
+	std::ifstream m_trainingDataFile;
 };
 
