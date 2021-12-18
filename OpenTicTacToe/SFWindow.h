@@ -29,7 +29,7 @@ class SFWindow
         void initWindow();
         void AIMove();
     public:
-        SFWindow(GameLogic& _gameLogic, Net& _neuralNet);
+        SFWindow(Net& _neuralNet);
         virtual ~SFWindow();
 
         const bool getWindowIsOpen() const;

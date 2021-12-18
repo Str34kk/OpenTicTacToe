@@ -32,7 +32,7 @@ void SFWindow::initWindow()
 	window->setFramerateLimit(25);
 }
 
-SFWindow::SFWindow(GameLogic& _gameLogic, Net& _neuralNet) : neuralNet(_neuralNet), gameLogic(_gameLogic)
+SFWindow::SFWindow(Net& _neuralNet) : neuralNet(_neuralNet)
 {
 	initVeriables();
 	initWindow();
@@ -104,6 +104,12 @@ void SFWindow::updateEvents()
         {
             mousePosition.x = event.mouseMove.x;
             mousePosition.y = event.mouseMove.y;
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        {
+            (&gameLogic)->~GameLogic();
+            new (&gameLogic) GameLogic();
         }
 
         if (!gameLogic.endGame && gameLogic.gameScore.back() == -1)
