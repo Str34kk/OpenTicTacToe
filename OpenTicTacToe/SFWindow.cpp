@@ -106,7 +106,7 @@ void SFWindow::updateEvents()
             mousePosition.y = event.mouseMove.y;
         }
 
-        if (!gameLogic.endGame && gameLogic.gameScore.back() == 1)
+        if (!gameLogic.endGame && gameLogic.gameScore.back() == -1)
         {
             AIMove();
             render();

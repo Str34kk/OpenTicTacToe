@@ -22,4 +22,3 @@ private:
 	Helpers helpers;
 	std::ifstream m_trainingDataFile;
 };
-
