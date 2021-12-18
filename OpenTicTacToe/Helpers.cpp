@@ -12,11 +12,19 @@ void Helpers::showVectorVals(std::string label, std::vector<double>& v)
 
 int Helpers::largest_element_index(const std::vector<double>& resultVals, const std::vector<double>& gameScore)
 {
-    double largest_element = -1;
+    double largest_element = 0;
+    for (int i = 0; i < resultVals.size(); i++)
+    {
+        if (gameScore[i] == 0)
+        {
+            largest_element = i;
+            break;
+        }
+    }
 
     for (int i = 0; i < resultVals.size(); i++)
     {
-        if (resultVals[i] > resultVals[largest_element] && gameScore[i] == 0)
+        if (gameScore[i] == 0 && resultVals[i] > resultVals[largest_element])
         {
             largest_element = i;
         }

@@ -86,9 +86,11 @@ void SFWindow::AIMove()
 
     int AIChoice = helpers.largest_element_index(resultVals, gameLogic.gameScore);
 
-    helpers.showVectorVals("resultVals: ", resultVals);
-
     gameLogic.updateTableScore(AIChoice);
+
+    std::cout << "Ai choice: " << AIChoice << std::endl;
+    helpers.showVectorVals("gameScore: ", gameLogic.gameScore);
+    helpers.showVectorVals("resultVals: ", resultVals);
 }
 
 void SFWindow::updateEvents()
