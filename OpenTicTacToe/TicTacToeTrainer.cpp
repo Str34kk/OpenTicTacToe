@@ -3,7 +3,7 @@
 TicTacToeTrainer::TicTacToeTrainer(Net& _neuralNet) : neuralNet(_neuralNet)
 {
     //m_trainingDataFile.open("ztest.txt");
-    m_trainingDataFile.open("ttt3x3.txt");
+    m_trainingDataFile.open("ttt3x3o.txt");
 }
 
 Net TicTacToeTrainer::Train(int trainingCycles)
