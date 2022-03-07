@@ -6,11 +6,15 @@
 
 int main()
 {
+    int trainCycles;
+    std::cout << "Enter the number of training cycles: ";
+    std::cin >> trainCycles;
 
-    std::vector<unsigned> topology = { 10, 40, 40, 9 };
+
+    std::vector<unsigned> topology = { 10, 120, 120, 9 };
     Net neuralNet(topology);
     TicTacToeTrainer ticTacToeTrainer(neuralNet);
-    neuralNet = ticTacToeTrainer.Train(10);
+    neuralNet = ticTacToeTrainer.Train(trainCycles);
 
     std::cout << "Net recent average error: " << neuralNet.getRecentAverageError() << std::endl;
 

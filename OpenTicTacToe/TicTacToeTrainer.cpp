@@ -3,7 +3,7 @@
 TicTacToeTrainer::TicTacToeTrainer(Net& _neuralNet) : neuralNet(_neuralNet)
 {
     //m_trainingDataFile.open("ztest.txt");
-    m_trainingDataFile.open("ttt3x3o.txt");
+    m_trainingDataFile.open("ttt3x3.txt");
 }
 
 Net TicTacToeTrainer::Train(int trainingCycles)
@@ -41,6 +41,7 @@ unsigned TicTacToeTrainer::getNextInputs(std::vector<double>& inputVals, std::ve
 {
     inputVals.clear();
     targetOutputVals.clear();
+    int inputNeurons = 10;
 
     std::string line;
     std::getline(m_trainingDataFile, line);
@@ -49,10 +50,9 @@ unsigned TicTacToeTrainer::getNextInputs(std::vector<double>& inputVals, std::ve
     double oneValue;
     int iteration = 0;
     while (ss >> oneValue) {
-        if (iteration < 10) inputVals.push_back(oneValue);
+        if (iteration < inputNeurons) inputVals.push_back(oneValue);
         else targetOutputVals.push_back(oneValue);
         iteration++;
     }
-
     return 0;
 }

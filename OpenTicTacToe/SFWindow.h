@@ -28,6 +28,7 @@ class SFWindow
         void initVeriables();
         void initWindow();
         void AIMove();
+        void Test(int testCycles);
     public:
         SFWindow(Net& _neuralNet);
         virtual ~SFWindow();

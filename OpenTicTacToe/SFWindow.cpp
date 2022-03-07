@@ -34,6 +34,7 @@ void SFWindow::initWindow()
 
 SFWindow::SFWindow(Net& _neuralNet) : neuralNet(_neuralNet)
 {
+    Test(100);
 	initVeriables();
 	initWindow();
 }
@@ -88,9 +89,47 @@ void SFWindow::AIMove()
 
     gameLogic.updateTableScore(AIChoice);
 
-    std::cout << "Ai choice: " << AIChoice << std::endl;
-    helpers.showVectorVals("gameScore: ", gameLogic.gameScore);
-    helpers.showVectorVals("resultVals: ", resultVals);
+    //std::cout << "Ai choice: " << AIChoice << std::endl;
+    //helpers.showVectorVals("gameScore: ", gameLogic.gameScore);
+    //helpers.showVectorVals("resultVals: ", resultVals);
+}
+
+void SFWindow::Test(int testCycles)
+{
+    srand(static_cast <unsigned> (time(0)));
+    float winX = 0;
+    float winO = 0;
+    float winD = 0;
+    for (int i = 0; i < testCycles * 100; i++)
+    {
+        (&gameLogic)->~GameLogic();
+        new (&gameLogic) GameLogic();
+
+        while (!gameLogic.endGame)
+        {
+            AIMove();
+            if (gameLogic.moveNumber == 9)
+            {
+                break;
+            }
+            std::vector<double> resultVals;
+            for (int j = 0; j < 9; j++)
+            {
+                float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                resultVals.push_back(r);
+            }
+            int AIChoice = helpers.largest_element_index(resultVals, gameLogic.gameScore);
+            gameLogic.updateTableScore(AIChoice);
+            gameLogic.checkForWinner();
+        }
+        if (gameLogic.checkForWinner() == 1) winX++;
+        if (gameLogic.checkForWinner() == -1) winO++;
+        if (gameLogic.checkForWinner() == 0) winD++;
+       
+    }
+    std::cout << "winX: " << winX / testCycles << "%" << std::endl;
+    std::cout << "winO: " << winO / testCycles << "%" << std::endl;
+    std::cout << "Draw: " << winD / testCycles << "%" << std::endl;
 }
 
 void SFWindow::updateEvents()

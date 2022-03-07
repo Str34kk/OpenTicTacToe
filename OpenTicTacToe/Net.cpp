@@ -6,7 +6,7 @@ Net::Net(const std::vector<unsigned>& topology)
 {
     m_error = 0.0;
     m_recentAverageError = 0.0;
-    m_recentAverageSmoothingFactor = 100.0;
+    m_recentAverageSmoothingFactor = 10000.0;
 
     unsigned numLayers = topology.size();
     for (unsigned layerNum = 0; layerNum < numLayers; ++layerNum) {
