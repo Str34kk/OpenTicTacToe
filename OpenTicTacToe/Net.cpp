@@ -4,7 +4,12 @@
 
 Net::Net(const std::vector<unsigned>& topology)
 {
+    m_er = 1.04;
+    m_ksiI = 1;
+    m_ksiD = 1;
+
     m_error = 0.0;
+    m_oldError = 10.0;
     m_recentAverageError = 0.0;
     m_recentAverageSmoothingFactor = 10000.0;
 
@@ -47,6 +52,7 @@ void Net::backProp(const std::vector<double>& targetVals)
     // Calculate overall net error (RMS of output neuron errors)
 
     Layer& outputLayer = m_layers.back();
+    m_oldError = m_error;
     m_error = 0.0;
 
     for (unsigned n = 0; n < outputLayer.size() - 1; ++n) {
@@ -55,6 +61,11 @@ void Net::backProp(const std::vector<double>& targetVals)
     }
     m_error /= outputLayer.size() - 1; // get average error squared
     m_error = sqrt(m_error); // RMS
+    //std::cout << outputLayer[4].getEta();
+
+    // Adaptive factor - update eta
+    if (m_error > m_er * m_oldError) outputLayer[0].setETA(outputLayer[0].getEta() * m_ksiD);
+    if (m_error < m_oldError) outputLayer[0].setETA(outputLayer[0].getEta() * m_ksiI);
 
     // Implement a recent average measurement
 

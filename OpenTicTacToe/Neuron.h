@@ -17,6 +17,8 @@ public:
 	Neuron(unsigned numOutputs, unsigned myIndex);
 	void setOutputVal(double val) { m_outputVal = val; }
 	double getOutputVal(void) const { return m_outputVal; }
+	void setETA(double val) { eta = val; }
+	double getEta(void) const { return eta; }
 	void feedForward(Layer& prevLayer);
 	void calcOutputGradients(double targetVal);
 	void calcHiddenGradients(const Layer& nextLayer);

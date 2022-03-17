@@ -11,7 +11,7 @@ int main()
     std::cin >> trainCycles;
 
 
-    std::vector<unsigned> topology = { 10, 120, 120, 9 };
+    std::vector<unsigned> topology = { 10, 300, 51, 9 };
     Net neuralNet(topology);
     TicTacToeTrainer ticTacToeTrainer(neuralNet);
     neuralNet = ticTacToeTrainer.Train(trainCycles);

@@ -8,7 +8,11 @@ class Net
 {
 private:
 	std::vector<Layer> m_layers;
+	double m_er;
+	double m_ksiI;
+	double m_ksiD;
 	double m_error;
+	double m_oldError;
 	double m_recentAverageError;
 	double m_recentAverageSmoothingFactor;
 public:

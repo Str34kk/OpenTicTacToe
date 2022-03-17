@@ -1,6 +1,6 @@
 #include "Neuron.h"
 
-double Neuron::eta = 0.015;
+double Neuron::eta = 0.012;
 double Neuron::alpha = 0.005;
 
 Neuron::Neuron(unsigned numOutputs, unsigned myIndex)
@@ -83,7 +83,7 @@ double Neuron::transferFunctionDerivative(double x)
 
 	// relu derivative
 	if (x > 0.0) return 1.0;
-	return 0.0;
+	return 0.0001;
 }
 
 double Neuron::sumDOW(const Layer& nextLayer) const
