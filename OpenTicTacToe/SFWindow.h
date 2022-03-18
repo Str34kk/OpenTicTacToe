@@ -25,6 +25,8 @@ class SFWindow
         std::vector<sf::Sprite> o;
         std::vector<sf::Sprite> x;
 
+        int aiMove;
+
         void initVeriables();
         void initWindow();
         void AIMove();

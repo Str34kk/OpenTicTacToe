@@ -22,6 +22,8 @@ void SFWindow::initVeriables()
 
     o = { o1, o2, o3 };
     x = { x1, x2, x3 };
+
+    aiMove = -1;
 }
 
 void SFWindow::initWindow()
@@ -34,7 +36,7 @@ void SFWindow::initWindow()
 
 SFWindow::SFWindow(Net& _neuralNet) : neuralNet(_neuralNet)
 {
-    Test(100);
+    //Test(100);
 	initVeriables();
 	initWindow();
 }
@@ -56,12 +58,12 @@ void SFWindow::render()
             posiotionInGrid = i * gameLogic.gridSize + j;
             if (gameLogic.gameScore[posiotionInGrid] == 1)
             {
-                x[0].setPosition((i * 200), (j * 200));
+                x[0].setPosition((j * 200), (i * 200));
                 window->draw(x[0]);
             }
             else if (gameLogic.gameScore[posiotionInGrid] == -1)
             {
-                o[0].setPosition((i * 200), (j * 200));
+                o[0].setPosition((j * 200), (i * 200));
                 window->draw(o[0]);
             }
         }
@@ -89,9 +91,9 @@ void SFWindow::AIMove()
 
     gameLogic.updateTableScore(AIChoice);
 
-    //std::cout << "Ai choice: " << AIChoice << std::endl;
-    //helpers.showVectorVals("gameScore: ", gameLogic.gameScore);
-    //helpers.showVectorVals("resultVals: ", resultVals);
+    std::cout << "Ai choice: " << AIChoice + 1 << std::endl;
+    helpers.showVectorVals("gameScore: ", gameLogic.gameScore);
+    helpers.showVectorVals("resultVals: ", resultVals);
 }
 
 void SFWindow::Test(int testCycles)
@@ -151,7 +153,12 @@ void SFWindow::updateEvents()
             new (&gameLogic) GameLogic();
         }
 
-        if (!gameLogic.endGame && gameLogic.gameScore.back() == -1)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+        {
+            aiMove = -aiMove;
+        }
+
+        if (!gameLogic.endGame && gameLogic.player == aiMove)
         {
             AIMove();
             render();
@@ -167,23 +174,23 @@ void SFWindow::updateEvents()
                 {
                     posiotionInGrid = i * gameLogic.gridSize + j;
                     if (!gameLogic.endGame &&
-                        gameLogic.gameScore.back() == 1 &&
+                        gameLogic.player == 1 &&
                         gameLogic.gameScore[posiotionInGrid] == 0 &&
-                        mousePosition.x > (i * 200) &&
-                        mousePosition.x < 200 + (i * 200) &&
-                        mousePosition.y >(j * 200) &&
-                        mousePosition.y < 200 + (j * 200))
+                        mousePosition.x > (j * 200) &&
+                        mousePosition.x < 200 + (j * 200) &&
+                        mousePosition.y >(i * 200) &&
+                        mousePosition.y < 200 + (i * 200))
                     {
                         gameLogic.updateTableScore(posiotionInGrid);
                         if (gameLogic.moveNumber > 4) gameLogic.checkForWinner();
                     }
                     else if (!gameLogic.endGame &&
-                        gameLogic.gameScore.back() == -1 &&
+                        gameLogic.player == -1 &&
                         gameLogic.gameScore[posiotionInGrid] == 0 &&
-                        mousePosition.x > (i * 200) &&
-                        mousePosition.x < 200 + (i * 200) &&
-                        mousePosition.y >(j * 200) &&
-                        mousePosition.y < 200 + (j * 200))
+                        mousePosition.x > (j * 200) &&
+                        mousePosition.x < 200 + (j * 200) &&
+                        mousePosition.y >(i * 200) &&
+                        mousePosition.y < 200 + (i * 200))
                     {
                         gameLogic.updateTableScore(posiotionInGrid);
                         if (gameLogic.moveNumber > 4) gameLogic.checkForWinner();

@@ -11,6 +11,7 @@ class GameLogic
         int moveNumber;
         std::vector<double> gameScore;
         std::vector<int> tableScore;
+        int player;
         bool endGame;
 
         GameLogic();

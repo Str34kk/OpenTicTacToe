@@ -41,7 +41,7 @@ unsigned TicTacToeTrainer::getNextInputs(std::vector<double>& inputVals, std::ve
 {
     inputVals.clear();
     targetOutputVals.clear();
-    int inputNeurons = 10;
+    int inputNeurons = 9;
 
     std::string line;
     std::getline(m_trainingDataFile, line);

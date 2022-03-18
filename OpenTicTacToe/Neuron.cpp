@@ -5,7 +5,7 @@ double Neuron::alpha = 0.005;
 
 Neuron::Neuron(unsigned numOutputs, unsigned myIndex)
 {
-	for (unsigned c = 0; c < numOutputs; ++c) {
+	for (unsigned c = 0; c < numOutputs; c++) {
 		m_outputWeights.push_back(Connection());
 		m_outputWeights.back().weight = randomWeight()/100;
 	}
