@@ -30,6 +30,10 @@ Net TicTacToeTrainer::Train(int trainingCycles)
                 std::cout << trainingPass << "th generation results" << std::endl;
                 std::cout << "Net recent average error: " << neuralNet.getRecentAverageError() << std::endl;
             }
+            if (trainingPass % (1 * trainingCycles) == 0)
+            {
+                neuralNet.updateLearningRate();
+            }
         }
     }
     std::cout << "final result" << std::endl;

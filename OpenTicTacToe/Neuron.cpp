@@ -7,7 +7,7 @@ Neuron::Neuron(unsigned numOutputs, unsigned myIndex)
 {
 	for (unsigned c = 0; c < numOutputs; c++) {
 		m_outputWeights.push_back(Connection());
-		m_outputWeights.back().weight = randomWeight()/100;
+		m_outputWeights.back().weight = randomWeight()/10;
 	}
 
 	m_myIndex = myIndex;

@@ -14,12 +14,14 @@ private:
 	double m_error;
 	double m_oldError;
 	double m_recentAverageError;
+	double m_oldRecentAverageError;
 	double m_recentAverageSmoothingFactor;
 public:
 	Net(const std::vector<unsigned>& topology);
 	void feedForward(const std::vector<double>& inputVals);
 	void backProp(const std::vector<double>& targetVals);
 	void getResults(std::vector<double>& resultVals) const;
+	void updateLearningRate();
 	double getRecentAverageError(void) const { return m_recentAverageError; }
 };
 

@@ -4,13 +4,14 @@
 
 Net::Net(const std::vector<unsigned>& topology)
 {
-    m_er = 1.04;
-    m_ksiI = 1;
-    m_ksiD = 1;
+    m_er = 1.02;
+    m_ksiI = 1.05;
+    m_ksiD = 0.9;
 
     m_error = 0.0;
-    m_oldError = 10.0;
+    m_oldError = 0.0;
     m_recentAverageError = 0.0;
+    m_oldRecentAverageError = 0.0;
     m_recentAverageSmoothingFactor = 10000.0;
 
     unsigned numLayers = topology.size();
@@ -61,17 +62,13 @@ void Net::backProp(const std::vector<double>& targetVals)
     }
     m_error /= outputLayer.size() - 1; // get average error squared
     m_error = sqrt(m_error); // RMS
-    //std::cout << outputLayer[4].getEta();
-
-    // Adaptive factor - update eta
-    if (m_error > m_er * m_oldError) outputLayer[0].setETA(outputLayer[0].getEta() * m_ksiD);
-    if (m_error < m_oldError) outputLayer[0].setETA(outputLayer[0].getEta() * m_ksiI);
 
     // Implement a recent average measurement
 
     m_recentAverageError =
         (m_recentAverageError * m_recentAverageSmoothingFactor + m_error)
         / (m_recentAverageSmoothingFactor + 1.0);
+
 
     // Calculate output layer gradients
 
@@ -111,4 +108,15 @@ void Net::getResults(std::vector<double>& resultVals) const
 	{
         resultVals.push_back(m_layers.back()[n].getOutputVal());
     }
+}
+
+void Net::updateLearningRate()
+{
+    // Adaptive factor - update eta
+
+    //std::cout << "eta: " << m_layers.back()[0].getEta() << std::endl;
+    if (m_recentAverageError > m_er * m_oldRecentAverageError && m_layers.back()[0].getEta() > 0.00001) m_layers.back()[0].setETA(m_layers.back()[0].getEta() * m_ksiD);
+    if (m_recentAverageError < m_oldRecentAverageError && m_layers.back()[0].getEta() < 0.02) m_layers.back()[0].setETA(m_layers.back()[0].getEta() * m_ksiI);
+
+    m_oldRecentAverageError = m_recentAverageError;
 }

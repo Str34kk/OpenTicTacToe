@@ -36,7 +36,7 @@ void SFWindow::initWindow()
 
 SFWindow::SFWindow(Net& _neuralNet) : neuralNet(_neuralNet)
 {
-    //Test(100);
+    Test(100);
 	initVeriables();
 	initWindow();
 }
@@ -91,9 +91,9 @@ void SFWindow::AIMove()
 
     gameLogic.updateTableScore(AIChoice);
 
-    std::cout << "Ai choice: " << AIChoice + 1 << std::endl;
+    /*std::cout << "Ai choice: " << AIChoice + 1 << std::endl;
     helpers.showVectorVals("gameScore: ", gameLogic.gameScore);
-    helpers.showVectorVals("resultVals: ", resultVals);
+    helpers.showVectorVals("resultVals: ", resultVals);*/
 }
 
 void SFWindow::Test(int testCycles)
